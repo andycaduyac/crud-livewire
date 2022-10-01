@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\Bookings;
 
-use App\Models\Booking;
 use Livewire\Component;
+use App\Models\Booking;
+use App\Events\UserLog;
 
 class Create extends Component
 {
@@ -19,13 +20,16 @@ class Create extends Component
             'checkout_date'         =>      ['required', 'date'],
         ]);
 
-        Booking::create([
+        $booking = Booking::create([
+
             'name'               =>      $this->name,
             'contact_number'     =>      $this->contact_number,
             'room_type'          =>      $this->room_type,
             'checkin_date'       =>      $this->checkin_date,
             'checkout_date'      =>      $this->checkout_date,
         ]);
+        $log_entry = "New booking added with booking ID No: $booking->id. Name: $booking->name";
+        event(new UserLog(($log_entry)));
 
         return redirect('/')->with('message', 'Created Successfully');
     }

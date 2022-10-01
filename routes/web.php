@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/edit/{booking}', [BookingController::class, 'edit']);
     Route::get('/delete/{booking}', [BookingController::class, 'destroy']);
     Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logs', [SiteController::class, 'logs']);
 });

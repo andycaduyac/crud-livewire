@@ -1,4 +1,18 @@
 <div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <select class="form-select" wire:model.lazy="room_type">
+                    <option value="all">All</option>
+                    <option value="single">Single</option>
+                    <option value="double">Double</option>
+                </select>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Search" wire:model.lazy='search'>
+            </div>
+        </div>
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -29,4 +43,5 @@
             @endforeach
         </tbody>
     </table>
+    {{$bookings->links()}}
 </div>

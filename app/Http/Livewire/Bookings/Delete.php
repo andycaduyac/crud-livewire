@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Bookings;
 
 use App\Models\Booking;
+use App\Events\UserLog;
+use App\Models\Log;
 use Livewire\Component;
 
 class Delete extends Component
@@ -16,6 +18,10 @@ class Delete extends Component
 
     public function delete(){
         $this->booking->delete();
+
+        $log_entry = 'Booking deleted with booking ID No: ' . $this->booking->id . '. Name: ' . $this->booking->name;
+        // "New booking added with booking ID No: $booking->id. Name: $booking->name";
+        event(new UserLog(($log_entry)));
 
         return redirect('/')->with('message', 'Deleted Successfully');
     }

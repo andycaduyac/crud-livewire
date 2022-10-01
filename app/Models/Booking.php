@@ -10,4 +10,16 @@ class Booking extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function scopeSearch($query, $term)
+    {
+        collect(explode(" ", $term))
+                ->filter()
+                ->each(function ($term) use($query){
+                    $term = '%'.$term.'%';
+
+                    $query->where('name', 'like', $term)
+                        ->orwhere('room_type', 'like', $term);
+        });
+    }
 }

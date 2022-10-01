@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\Bookings;
 
-use App\Models\Booking;
 use Livewire\Component;
+use App\Models\Booking;
+use App\Events\UserLog;
 
 class Edit extends Component
 {
@@ -26,6 +27,8 @@ class Edit extends Component
             'checkin_date'          =>      ['required', 'date'],
             'checkout_date'         =>      ['required', 'date'],
         ]);
+        $log_entry = 'Booking Updated. Booking ID: ' . $this->booking->id;
+        event(new UserLog($log_entry));
 
         $this->booking->update([
             'name'                      =>          $this->name,
